@@ -1,10 +1,12 @@
 package edu.coursera.parallel;
 
-import junit.framework.TestCase;
+import org.junit.*;
 
 import java.util.Random;
 
-public class ReciprocalArraySumTest extends TestCase {
+import static org.junit.Assert.*;
+
+public class ReciprocalArraySumTest {
     // Number of times to repeat each test, for consistent timing results.
     final static private int REPEATS = 10;
 
@@ -112,6 +114,7 @@ public class ReciprocalArraySumTest extends TestCase {
     /**
      * Test that the two-task parallel implementation properly computes the results for a million-element array.
      */
+    @Test
     public void testParSimpleOneMillion() {
         final double minimalExpectedSpeedup = 1.5;
         final double speedup = parTestHelper(1_000_000, false, 2);
@@ -123,6 +126,7 @@ public class ReciprocalArraySumTest extends TestCase {
     /**
      * Test that the two-task parallel implementation properly computes the results for a hundred million-element array.
      */
+    @Test
     public void testParSimpleOneHundredMillion() {
         final double speedup = parTestHelper(100_000_000, false, 2);
         final double minimalExpectedSpeedup = 1.5;
@@ -134,6 +138,7 @@ public class ReciprocalArraySumTest extends TestCase {
     /**
      * Test that the many-task parallel implementation properly computes the results for a million-element array.
      */
+    @Ignore
     public void testParManyTaskOneMillion() {
         final int ncores = getNCores();
         final double minimalExpectedSpeedup = (double)ncores * 0.6;
@@ -146,6 +151,7 @@ public class ReciprocalArraySumTest extends TestCase {
     /**
      * Test that the many-task parallel implementation properly computes the results for a hundred million-element array.
      */
+    @Ignore
     public void testParManyTaskOneHundredMillion() {
         final int ncores = getNCores();
         final double speedup = parTestHelper(100_000_000, true, ncores);
