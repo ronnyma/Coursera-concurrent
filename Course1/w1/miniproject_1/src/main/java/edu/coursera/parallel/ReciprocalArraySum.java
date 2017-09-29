@@ -128,20 +128,7 @@ public final class ReciprocalArraySum {
 
         @Override
         protected void compute() {
-            if (endIndexExclusive - startIndexInclusive <= (input.length / 2) + 10) {
-                for (int i = startIndexInclusive; i < endIndexExclusive; ++i) {
-                    value += 1 / input[1];
-                }
-            } else {
-                ReciprocalArraySumTask l = new ReciprocalArraySumTask(startIndexInclusive,
-                        (endIndexExclusive + startIndexInclusive) / 2, input);
-                ReciprocalArraySumTask r = new ReciprocalArraySumTask((endIndexExclusive + startIndexInclusive) / 2,
-                        startIndexInclusive, input);
-                l.fork();
-                r.compute();
-                l.join();
-                value = l.value + r.value;
-            }
+           
         }
     }
 
