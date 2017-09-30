@@ -1,2 +1,2 @@
 # Coursera-concurrent
-Parallell, Consurrent and Distributed Computing
+Parallel, Concurrent and Distributed Computing
