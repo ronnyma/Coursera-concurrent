@@ -1,5 +1,6 @@
 package edu.coursera.parallel;
 
+import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveAction;
 
 /**
@@ -128,7 +129,7 @@ public final class ReciprocalArraySum {
 
         @Override
         protected void compute() {
-            if (endIndexExclusive - startIndexInclusive <= input.length / 2) {
+            if (endIndexExclusive - startIndexInclusive <= 10000) {
                 for (int i = startIndexInclusive; i < endIndexExclusive; ++i) {
                     value += 1 / input[i];
                 }
@@ -136,10 +137,11 @@ public final class ReciprocalArraySum {
                 ReciprocalArraySumTask l = new ReciprocalArraySumTask(startIndexInclusive,
                         (endIndexExclusive + startIndexInclusive) / 2, input);
                 ReciprocalArraySumTask r = new ReciprocalArraySumTask((endIndexExclusive + startIndexInclusive) / 2,
-                        startIndexInclusive, input);
+                        endIndexExclusive, input);
                 l.fork();
                 r.compute();
                 l.join();
+
                 value = l.value + r.value;
             }
         }
@@ -163,15 +165,19 @@ public final class ReciprocalArraySum {
         //for (int i = 0; i < input.length; i++) {
         //    sum += 1 / input[i];
         //}
-        ReciprocalArraySumTask l = new ReciprocalArraySumTask(0, input.length/2, input);
-        ReciprocalArraySumTask r = new ReciprocalArraySumTask(input.length/2, input.length, input);
+        ReciprocalArraySumTask t = new ReciprocalArraySumTask(0, input.length, input);
+        ForkJoinPool.commonPool().invoke(t);
 
-        l.fork();
-        r.compute();
-        l.join();
+        //ReciprocalArraySumTask l = new ReciprocalArraySumTask(0, input.length/2, input);
+        //ReciprocalArraySumTask r = new ReciprocalArraySumTask(input.length/2, input.length, input);
 
-        sum = l.getValue() + r.getValue();
+        //l.fork();
+        //r.compute();
+        //l.join();
 
+        //sum = l.getValue() + r.getValue();
+
+        sum = t.getValue();
 
         return sum;
     }
