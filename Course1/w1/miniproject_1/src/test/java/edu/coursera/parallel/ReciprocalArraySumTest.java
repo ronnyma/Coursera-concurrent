@@ -10,6 +10,13 @@ public class ReciprocalArraySumTest {
     // Number of times to repeat each test, for consistent timing results.
     final static private int REPEATS = 10;
 
+    @Before
+    public void setUp() {
+        String ncores = Integer.toString(Runtime.getRuntime().availableProcessors());
+        System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", ncores);
+
+    }
+
     private static int getNCores() {
         String ncoresStr = System.getenv("COURSERA_GRADER_NCORES");
         if (ncoresStr == null) {
@@ -138,7 +145,7 @@ public class ReciprocalArraySumTest {
     /**
      * Test that the many-task parallel implementation properly computes the results for a million-element array.
      */
-    @Ignore
+    @Test
     public void testParManyTaskOneMillion() {
         final int ncores = getNCores();
         final double minimalExpectedSpeedup = (double)ncores * 0.6;
@@ -151,7 +158,7 @@ public class ReciprocalArraySumTest {
     /**
      * Test that the many-task parallel implementation properly computes the results for a hundred million-element array.
      */
-    @Ignore
+    @Test
     public void testParManyTaskOneHundredMillion() {
         final int ncores = getNCores();
         final double speedup = parTestHelper(100_000_000, true, ncores);
