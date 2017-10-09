@@ -1,8 +1,8 @@
 package edu.coursera.parallel;
 
-import java.util.Random;
-
 import junit.framework.TestCase;
+
+import java.util.Random;
 
 public class MatrixMultiplyTest extends TestCase {
     // Number of times to repeat each test, for consistent timing results.
