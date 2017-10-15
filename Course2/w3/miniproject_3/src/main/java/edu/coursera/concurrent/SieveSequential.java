@@ -36,7 +36,7 @@ public final class SieveSequential extends Sieve {
         final int s = primesList.size();
         for (int i = 0; i < s; ++i) {
             final Integer loopPrime = primesList.get(i);
-            if (candidate % loopPrime.intValue() == 0) {
+            if (candidate % loopPrime == 0) {
                 isPrime = false;
                 break;
             }
