@@ -13,3 +13,5 @@ buildNumber.properties
 *.ipr
 *.iml
 *.idea*
+package-info.java
+checkstyle.xml
